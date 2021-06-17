@@ -246,7 +246,7 @@ public class DivideConta extends javax.swing.JFrame {
         double couvert = Double.parseDouble(edtCouvert.getText());
         int pessoas = (int) spPessoas.getValue();
         double valTot = 0;
-        double couvTot = couvert * pessoas;
+        double couvTot = couvert / pessoas;
         if(rbTaxaSim.isSelected()){
             valTot = consumo + couvTot + (consumo * 0.1);
         }else{
