@@ -126,6 +126,15 @@ public class DivideConta extends javax.swing.JFrame {
 
         jLabel5.setText("Custo Total(R$)");
 
+        edtCusto.setEditable(false);
+        edtCusto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtCustoActionPerformed(evt);
+            }
+        });
+
+        edtValor.setEditable(false);
+
         jLabel6.setText("Valor por Pessoa(R$)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -235,19 +244,26 @@ public class DivideConta extends javax.swing.JFrame {
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         double consumo = Double.parseDouble(edtConsumo.getText());
         double couvert = Double.parseDouble(edtCouvert.getText());
-        double taxa = 1;
         int pessoas = (int) spPessoas.getValue();
+        double valTot = 0;
+        double couvTot = couvert * pessoas;
         if(rbTaxaSim.isSelected()){
-            taxa = 0.1;
+            valTot = consumo + couvTot + (consumo * 0.1);
         }else{
-            taxa = 1;
+            valTot = consumo + couvTot;
         }
+
+        double valPessoa = valTot / pessoas;
         
-        edtCusto.setText(""+consumo);
-        edtValor.setText(""+couvert);
+        edtCusto.setText("" + valTot);
+        edtValor.setText("" + valPessoa);
 
         
     }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void edtCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCustoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtCustoActionPerformed
 
     /**
      * @param args the command line arguments
