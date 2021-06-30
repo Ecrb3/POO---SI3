@@ -61,18 +61,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblTipo = new javax.swing.JLabel();
         btnAtualizar = new javax.swing.JButton();
         btnPagar = new javax.swing.JButton();
+        btnFechaConta = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mniDepositar = new javax.swing.JMenuItem();
         mniTransferir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Banco");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ecama\\Downloads\\banco.png")); // NOI18N
         jLabel2.setText("Bem vindo");
 
         lblNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -92,7 +93,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel4.setText("Tipo de Conta:");
 
-        btnAtualizar.setIcon(new javax.swing.ImageIcon("C:\\Users\\ecama\\Downloads\\refresh-page-arrow-button_icon-icons.com_53909.png")); // NOI18N
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtualizarActionPerformed(evt);
@@ -118,7 +118,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(edtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
                 .addGap(50, 50, 50))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(146, 146, 146)
@@ -151,6 +151,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnFechaConta.setText("Fechar Conta");
+        btnFechaConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFechaContaActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("Conta");
 
         mniDepositar.setText("Depositar");
@@ -172,10 +179,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Emprestimos");
+
+        jMenuItem1.setText("Simulações");
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         mnSair.setText("Sair");
+        mnSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnSairMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mnSair);
+        mnSair.getAccessibleContext().setAccessibleDescription("");
 
         setJMenuBar(jMenuBar1);
 
@@ -187,12 +204,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(68, 68, 68)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(44, 44, 44))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(46, 46, 46)
                 .addComponent(btnPagar)
+                .addGap(18, 18, 18)
+                .addComponent(btnFechaConta)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,9 +225,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPagar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPagar)
+                    .addComponent(btnFechaConta))
+                .addContainerGap())
         );
 
         pack();
@@ -218,7 +239,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         ct.pagarMensal();
         edtSaldo.setText("" + ct.getSaldo());
-        JOptionPane.showMessageDialog(this, "Mensalidade paga com sucesso!!!");
+
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void edtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSaldoActionPerformed
@@ -238,6 +259,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaTransferencia janela = new TelaTransferencia(ct);
         janela.setVisible(true);
     }//GEN-LAST:event_mniTransferirActionPerformed
+
+    private void btnFechaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaContaActionPerformed
+        ct.fecharConta();
+    }//GEN-LAST:event_btnFechaContaActionPerformed
+
+    private void mnSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnSairMouseClicked
+        int opt = JOptionPane.showConfirmDialog(null, "Deseja encerrar?", "Fechar", JOptionPane.YES_NO_OPTION);
+        if(opt == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_mnSairMouseClicked
 
     /**
      * @param args the command line arguments
@@ -276,6 +308,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnFechaConta;
     private javax.swing.JButton btnPagar;
     private javax.swing.JTextField edtSaldo;
     private javax.swing.JLabel jLabel1;
@@ -285,6 +318,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumConta;

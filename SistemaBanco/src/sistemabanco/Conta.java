@@ -17,8 +17,8 @@ public class Conta {
     Scanner sc = new Scanner(System.in);
     TelaPrincipal tela = new TelaPrincipal();
     TelaDeposito tela2 = new TelaDeposito();
-    public String numConta;
-    protected String tipo;
+    private String numConta;
+    private String tipo;
     private String dono;
     private float saldo;
     private boolean status;
@@ -30,28 +30,37 @@ public class Conta {
 
     public void fecharConta(){
         if(this.getSaldo() == 0){
-            this.status = false;
+            int op = JOptionPane.showConfirmDialog(null, "Certeza que deseja encerrar a conta?", "Encerrar?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if(op == JOptionPane.YES_OPTION){
+                JOptionPane.showMessageDialog(null, "Conta fechada com sucesso!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                this.setStatus(false);
+            }
         }else{
-            System.out.println("Ainda há pendencias em sua conta");
+            JOptionPane.showMessageDialog(null, "Ainda há pendencias em sua conta", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     public void pagarMensal(){
         float mensal = 0;
-        if(this.tipo.equals("Conta Corrente")){
-            mensal = 12;
-        }else{
-            mensal = 20;
-        }
+        if(this.isStatus()){
+            if(this.getTipo().equals("Conta Corrente")){
+                mensal = 12;
+            }else{
+                mensal = 20; 
+            }
             this.setSaldo(this.getSaldo() - mensal);
+            JOptionPane.showMessageDialog(null, "Mensalidade paga com sucesso!!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null, "Sua conta está fechada", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         
     }
     public void depositar(float v){
         if(this.isStatus() == true){
             this.setSaldo(this.getSaldo() + v);
-            JOptionPane.showMessageDialog(null,"Foi depositado na conta " + this.getDono() + " o valor de R$ " + v + " Saldo final de: R$ " + this.getSaldo());
+            JOptionPane.showMessageDialog(null,"Foi depositado da conta " + this.getDono() + " o valor de R$ " + v + "\n Saldo final de: R$ " + this.getSaldo(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }else{
-            JOptionPane.showMessageDialog(null,"Sua conta esta fechada");
+            JOptionPane.showMessageDialog(null,"Sua conta esta fechada", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -59,12 +68,12 @@ public class Conta {
         if(this.isStatus() == true){
             if(v <= this.getSaldo()){
                 this.setSaldo(this.getSaldo() - v);
-                JOptionPane.showMessageDialog(null,"Foi transferido na conta " + this.getDono() + " O valor de R$ " + v + " Saldo final de: R$ " + this.getSaldo());
+                JOptionPane.showMessageDialog(null,"Foi transferido da conta " + this.getDono() + " O valor de R$ " + v + "\n Saldo final de: R$ " + this.getSaldo(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }else{
-                JOptionPane.showMessageDialog(null,"Quantia maior que existente em conta!");
+                JOptionPane.showMessageDialog(null,"Quantia maior que existente em conta!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            JOptionPane.showMessageDialog(null,"Sua conta esta fechada");
+            JOptionPane.showMessageDialog(null,"Sua conta esta fechada", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -113,7 +122,7 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta{" + "tipo=" + tipo + ", dono=" + dono + ", saldo=" + saldo + ", status=" + status + '}';
+        return "Conta:" + "\nTipo da conta: " + tipo + "\nDono da conta: " + dono + "\nSaldo Inícial: " + saldo + "\nStatus da Conta: " + status;
     }
     
 }

@@ -33,7 +33,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        edtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         edtSenha = new javax.swing.JPasswordField();
         btnEntra = new javax.swing.JButton();
@@ -41,13 +40,13 @@ public class TelaCadastro extends javax.swing.JFrame {
         cbTipo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         edtNumConta = new javax.swing.JTextField();
+        edtUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ecama\\Downloads\\banco.png")); // NOI18N
         jLabel1.setText("Cadastre-se agora");
 
         jLabel2.setText("Nome:");
@@ -78,6 +77,9 @@ public class TelaCadastro extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -87,13 +89,10 @@ public class TelaCadastro extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edtUsuario)
                     .addComponent(edtSenha)
-                    .addComponent(edtNumConta))
+                    .addComponent(edtNumConta)
+                    .addComponent(edtUsuario))
                 .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnEntra, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +103,7 @@ public class TelaCadastro extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtNumConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,28 +127,43 @@ public class TelaCadastro extends javax.swing.JFrame {
     private void btnEntraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntraActionPerformed
         String usuario = edtUsuario.getText();
         String senha = new String (edtSenha.getPassword());
-        String numConta = edtNumConta.getText();
+        String numConta = jFormattedTextField1.getText();
         String tipo = (""+cbTipo.getSelectedItem());
         Conta conta = new Conta(); 
         
-        conta.setDono(usuario);
-        conta.setNumConta(numConta);
-        conta.setTipo(tipo);
-        if(tipo.equals("Conta Corrente")){
-            conta.setSaldo(50.0f);
-        }else if(tipo.equals("Conta Poupança")){
-           conta.setSaldo(150.0f);
-        }
-        conta.setStatus(true);
+        if(usuario.substring(0, 3).matches("[0-9]*") == false && usuario.isEmpty() == false){
+            if(numConta.matches("[0-9]*")){
+                conta.setDono(usuario);
+                conta.setNumConta(numConta);
+                conta.setTipo(tipo);
+
+                if(tipo.equals("Conta Corrente")){
+                    conta.setSaldo(50.0f);
+                }else if(tipo.equals("Conta Poupança")){
+                    conta.setSaldo(150.0f);
+                }
+                conta.setStatus(true);
         
         
-        JOptionPane.showMessageDialog(this, usuario + " Seu cadastro foi concluído! \n" + conta.toString());
+                JOptionPane.showMessageDialog(this, usuario + " seu cadastro foi concluído! \n" + conta.toString());
 
                
-        TelaPrincipal janela = new TelaPrincipal(conta);
+                TelaPrincipal janela = new TelaPrincipal(conta);
         
-        janela.setVisible(true);
-        this.dispose();
+                janela.setVisible(true);
+                this.dispose();
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Numero da conta invalido!","Erro", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Usuario invalido!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+
         
     }//GEN-LAST:event_btnEntraActionPerformed
 

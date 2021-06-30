@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ecama/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/TelaDeposito.java</file>
-            <file>file:/C:/Users/ecama/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/Conta.java</file>
-            <file>file:/C:/Users/ecama/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/TelaCadastro.java</file>
-            <file>file:/C:/Users/ecama/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/TelaPrincipal.java</file>
+            <file>file:/C:/Users/eduardo.borges/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/TelaDeposito.java</file>
+            <file>file:/C:/Users/eduardo.borges/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/TelaCadastro.java</file>
+            <file>file:/C:/Users/eduardo.borges/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/TelaPrincipal.java</file>
+            <file>file:/C:/Users/eduardo.borges/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/Conta.java</file>
+            <file>file:/C:/Users/eduardo.borges/Documents/NetBeansProjects/SistemaBanco/src/sistemabanco/TelaTransferencia.java</file>
         </group>
     </open-files>
 </project-private>
