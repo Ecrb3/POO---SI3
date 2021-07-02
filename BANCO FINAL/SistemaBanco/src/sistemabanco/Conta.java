@@ -21,7 +21,6 @@ public class Conta {
     private String dono;
     private float saldo;
     private boolean status;
-    private Float tot;
 
     public Conta() {
         this.status = true;
@@ -30,14 +29,23 @@ public class Conta {
 
     public void fecharConta(){
         if(this.getSaldo() == 0){
-            int op = JOptionPane.showConfirmDialog(null, "Certeza que deseja encerrar a conta?", "Encerrar?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            int op = JOptionPane.showConfirmDialog(tela, "Certeza que deseja encerrar a conta?", "Encerrar?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if(op == JOptionPane.YES_OPTION){
-                JOptionPane.showMessageDialog(null, "Conta fechada com sucesso!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(tela, "Conta fechada com sucesso!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 this.setStatus(false);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Ainda há pendencias em sua conta", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(tela, "Ainda há pendencias em sua conta", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    public void abrirConta(){
+        int op = JOptionPane.showConfirmDialog(tela, "Deseja reabrir sua conta?", "Reabrir", JOptionPane.YES_NO_OPTION);
+        if(op == JOptionPane.YES_OPTION){
+            this.setStatus(true);
+            JOptionPane.showMessageDialog(tela, "Conta reaberta com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
     }
     
     public void pagarMensal(){
@@ -48,10 +56,14 @@ public class Conta {
             }else{
                 mensal = 20; 
             }
-            this.setSaldo(this.getSaldo() - mensal);
-            JOptionPane.showMessageDialog(null, "Mensalidade paga com sucesso!!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            if(this.getSaldo() >= mensal){
+                this.setSaldo(this.getSaldo() - mensal);
+                JOptionPane.showMessageDialog(tela, "Mensalidade paga com sucesso!!!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(tela, "Saldo insuficente", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }else{
-            JOptionPane.showMessageDialog(null, "Sua conta está fechada", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(tela, "Sua conta está fechada", "Erro", JOptionPane.ERROR_MESSAGE);
         }
         
     }
@@ -68,7 +80,7 @@ public class Conta {
         if(this.isStatus() == true){
             if(v <= this.getSaldo()){
                 this.setSaldo(this.getSaldo() - v);
-                JOptionPane.showMessageDialog(null,"Foi transferido da conta " + this.getDono() + " O valor de R$ " + v + "\n Saldo final de: R$ " + this.getSaldo(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Foi transferido da conta " + this.getDono() + " o valor de R$ " + v + "\n Saldo final de: R$ " + this.getSaldo(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 JOptionPane.showMessageDialog(null,"Quantia maior que existente em conta!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -76,11 +88,7 @@ public class Conta {
             JOptionPane.showMessageDialog(null,"Sua conta esta fechada", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void simulação(float n, int v){
-        Float mens = (n * 0.055f);
-        this.setTot((mens * v) + n);
-        
-    }
+
     
     public String getTipo() {
         return tipo;
@@ -124,14 +132,6 @@ public class Conta {
         this.numConta = numConta;
     }
 
-    public Float getTot() {
-        return tot;
-    }
-
-    public void setTot(Float tot) {
-        this.tot = tot;
-    }
-    
 
     @Override
     public String toString() {
